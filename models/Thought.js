@@ -1,4 +1,5 @@
-const { Schema, model } = require('mongoose');
+const { Schema, Types, model } = require("mongoose");
+const dateFormat = require('../utils/dateFormat');
 
 const ThoughtSchema = new Schema(
     {
@@ -47,19 +48,19 @@ const reactionSchema = new Schema({
         default: () => new Types.ObjectId()
     },
     reactionBody: {
+        type: String,
         required: true,
-        type: string,
         max: 280
         //no min specified
     },
     username: {
         required: true,
-        type: string
+        type: String
     },
     createdAt: {
         type: Date,
         default: Date.now,
-        //research what is meant by createdAtVal (created at validation) from pizza hunt lesson
+        //just using for now until I determine a library to replace what was done in pizza hunt lesson
         get: createdAtVal => dateFormat(createdAtVal)
     },
 },

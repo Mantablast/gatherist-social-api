@@ -7,6 +7,7 @@
 //using populate() to reference docs in other collections
 const { populate } = require("../models/User");
 const { User } = require("../models");
+const dateFormat = require('../utils/dateFormat');
 
 // /api/users
 const userCrud = {
@@ -29,6 +30,7 @@ const userCrud = {
         res.status(500).json("Something went wrong." + err);
       });
   },
+
   //get user by Id , also populate thought and friend data
   getUserById({ params }, res) {
     User.findOne({ _id: params.id })
@@ -52,6 +54,7 @@ const userCrud = {
         res.status(500).json("Something went wrong." + err);
       });
   },
+
   //create a new user
   postUser({ body }, res) {
     User.create(body)
@@ -61,6 +64,7 @@ const userCrud = {
         res.status(500).json("Something went wrong." + err);
       });
   },
+
   //update a user by Id //PUT
   updateUser({ params, body }, res) {
     User.findOneAndUpdate({ _id: params.id }, body, {
@@ -79,6 +83,7 @@ const userCrud = {
         res.status(500).json("Something went wrong." + err);
       });
   },
+  
   //delete a user by the userId
   deleteUser({ params }, res) {
     User.findOneAndDelete({ _id: params.id })
@@ -89,6 +94,9 @@ const userCrud = {
       });
   },
 };
+
+//BONUS: Remove a user's associated thoughts when deleted.
+//set thoughts to null if user deleted?
 
 //export it for use!
 module.exports = userCrud;

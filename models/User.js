@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, Types, model } = require("mongoose");
 
 const UserSchema = new Schema(
   {
@@ -12,7 +12,8 @@ const UserSchema = new Schema(
       type: String,
       unique: true,
       //small email validate
-      match: [/.+@.+\..+/, 'There seems to be a problem.  Please enter a valid e-mail address'],
+      //regex validation from https://stackoverflow.com/questions/46155
+      match: [/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'There seems to be a problem.  Please enter a valid e-mail address'],
       min: [2, 'Change to email validate with mongo db'],
       //here in place of mongo db email validate, to be added later
       max: 12
@@ -34,7 +35,6 @@ const UserSchema = new Schema(
   {
     toJSON: {
       virtuals: true,
-      getters: true
     },
     //prevent duplicates
     id: false
