@@ -6,10 +6,12 @@ const app = express();
 //select port for use
 const PORT = process.env.PORT || 3001;
 
-const { User } = require('./models');
+const { User, Thought } = require('./models');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(require('./routes'))
+// app.use(express.urlencoded({ extended: true }));
 
 //startup mongoose virtual
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/gatheristdb', {
