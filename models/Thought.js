@@ -59,13 +59,13 @@ const reactionSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        //reseach what is meant by createdAtVal (created at validation) from pizza hunt lesson
+        //research what is meant by createdAtVal (created at validation) from pizza hunt lesson
         get: createdAtVal => dateFormat(createdAtVal)
     },
 },
     {
         toJSON: {
-            virtuals: true,
+            virtuals: false,
             getters: true
         },
         //prevent duplicates
