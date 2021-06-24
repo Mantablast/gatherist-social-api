@@ -1,17 +1,25 @@
 const router = require('express').Router();
-const { addComment, removeComment } = require('../../controllers/comment-controller');
+const {
+    getAllComments,
+    getCommentById,
+    updateComment,
+    createComment,
+    userThoughtDelete
 
-// // /api/comments/<userId>
-// router.route('/:userId').post(addComment);
+    //figure out reaction apis and functions
+  } = require('../../controllers/comment-controller');
+  
+  // /api/comments
+  router
+    .route('/')
+    .get(getAllComments)
+    .post(createComment);
+  
+  // /api/users/:userId
+  router
+    .route('/:id')
+    .get(getCommentById)
+    .put(updateComment)
+    .delete(userThoughtDelete);
 
-// // /api/comments/<userId>/<commentId>
-// router.route('/:userId/:commentId').delete(removeComment);
-
-// /api/users
-
-// /api/users/:userId/friends/:friendId
-
-// /api/thoughts
-
-// /api/thoughts/:thoughtId/reactions
 module.exports = router;
