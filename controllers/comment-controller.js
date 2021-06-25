@@ -86,24 +86,69 @@ const commentController = {
                 res.status(500).json("Something went wrong." + err);
             });
     },
-      // delete thoughts
-  userThoughtDelete({ params }, res) {
-    Thought.findOneAndDelete({ _id: params.id })
-      .then((userCommentGet) => {
-        if (!userCommentGet) {
-          res.status(404).json({ message: "No user comments with this id." });
-          return;
-        }
-        res.json(userCommentGet);
-      })
-      
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json("Something went wrong." + err);
-    });
-  }
+    // delete thoughts
+    userThoughtDelete({ params }, res) {
+        Thought.findOneAndDelete({ _id: params.id })
+            .then((userCommentGet) => {
+                if (!userCommentGet) {
+                    res.status(404).json({ message: "No user comments with this id." });
+                    return;
+                }
+                res.json(userCommentGet);
+            })
 
-  //add reaction api's here
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json("Something went wrong." + err);
+            });
+    },
+
+    //add reaction api's here
+    addReaction({ params, body }, res) {
+        console.log(body);
+        Reaction.create(body)
+            .then(({ _id }) => {
+                return Reaction.findOneAndUpdate(
+                    { _id: params.thoughtId },
+                    { $push: { reaction: _id } },
+                    { new: true }
+                );
+            })
+
+            .then(reactionData => {
+                if (!reactionData) {
+                    res.status(404).json({ message: 'No thought id found!' });
+                    return;
+                }
+                res.json(reactionData);
+            })
+            .catch(err => res.json(err));
+    },
+
+    // remove 
+    removeReaction({ params }, res) {
+        Thought.findOneAndDelete({ _id: params.thoughtId })
+            .then(reactionData => {
+                if (!reactionData) {
+                    return res.status(404).json({ message: 'No thought id found!' });
+                }
+                return Thought.findOneAndUpdate(
+                    { _id: params.thoughtId },
+                    { $pull: { comments: params.commentId } },
+                    { new: true }
+                );
+            })
+
+            .then(reactionData => {
+                if (!reactionData) {
+                    res.status(404).json({ message: 'No reaction data found!' });
+                    return;
+                }
+                res.json(reactionData);
+            })
+            .catch(err => res.json(err));
+    }
+
 }
 
 

@@ -1,3 +1,4 @@
+//enable mongoose virtuals
 const { Schema, Types, model } = require("mongoose");
 const dateFormat = require('../utils/dateFormat');
 
@@ -73,6 +74,7 @@ const reactionSchema = new Schema({
         id: false
     }
 );
+
 const Thought = model('Thought', ThoughtSchema);
 
 //Create a virtual called friendCount that retrieves the len of the user's friends array field on query.

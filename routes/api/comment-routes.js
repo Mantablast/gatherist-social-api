@@ -4,7 +4,9 @@ const {
     getCommentById,
     updateComment,
     createComment,
-    userThoughtDelete
+    userThoughtDelete,
+    addReaction,
+    removeReaction
 
     //figure out reaction apis and functions
   } = require('../../controllers/comment-controller');
@@ -20,6 +22,8 @@ const {
     .route('/:id')
     .get(getCommentById)
     .put(updateComment)
-    .delete(userThoughtDelete);
+    .delete(userThoughtDelete)
+    .post(addReaction)
+    .delete(removeReaction);
 
 module.exports = router;
