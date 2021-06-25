@@ -129,12 +129,13 @@ const commentController = {
     removeReaction({ params }, res) {
         Thought.findOneAndDelete({ _id: params.thoughtId })
             .then(reactionData => {
+
                 if (!reactionData) {
                     return res.status(404).json({ message: 'No thought id found!' });
                 }
                 return Thought.findOneAndUpdate(
                     { _id: params.thoughtId },
-                    { $pull: { comments: params.commentId } },
+                    { $pull: { comments: params.thoughtId } },
                     { new: true }
                 );
             })

@@ -1,7 +1,6 @@
 //enable mongoose virtuals
 const { Schema, Types, model } = require("mongoose");
 const dateFormat = require('../utils/dateFormat');
-
 const ThoughtSchema = new Schema(
     {
         thoughtText: {
@@ -14,7 +13,7 @@ const ThoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            //reseach what is meant by createdAtVal (created at validation)
+           
             get: createdAtVal => dateFormat(createdAtVal)
         },
         username: [
