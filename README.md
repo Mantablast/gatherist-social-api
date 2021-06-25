@@ -1,4 +1,4 @@
-# gatherist-social-api
+# Gatherist-Social-Api
 https://drive.google.com/file/d/1Q_cklZWPQm2RF5WCMjtnouvNX0-gt0D8/view
 https://github.com/MissAimeeJay/gatherist-social-api
 
